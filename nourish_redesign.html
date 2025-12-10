@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nourish Generation - Fresh Meals & Soul-Warming Recipes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2D5F5D;
+            --secondary: #F77F00;
+            --accent: #7B68EE;
+            --text-dark: #2C3E50;
+            --text-light: #666;
+            --bg-light: #F5F5F5;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--secondary);
+            transition: width 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--secondary);
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 70px;
+            background: linear-gradient(135deg, #E8F4F8 0%, #D1E9F6 100%);
+            padding: 6rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-content {
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .hero-badge::before {
+            content: '🌿';
+            font-size: 1.2rem;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .hero h1 .highlight {
+            color: var(--secondary);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(247, 127, 0, 0.3);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(247, 127, 0, 0.4);
+        }
+
+        .btn-primary:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .hero-image {
+            position: relative;
+            animation: fadeInRight 0.8s ease;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Section Header */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .section-header h2 .highlight {
+            color: var(--secondary);
+        }
+
+        .section-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Recipe Cards */
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .recipe-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .recipe-image {
+            position: relative;
+            height: 240px;
+            overflow: hidden;
+        }
+
+        .recipe-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .recipe-card:hover .recipe-image img {
+            transform: scale(1.1);
+        }
+
+        .recipe-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--secondary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .recipe-content {
+            padding: 1.5rem;
+        }
+
+        .recipe-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-dark);
+        }
+
+        .recipe-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .recipe-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .recipe-meta span::before {
+            font-size: 1rem;
+        }
+
+        .recipe-meta .time::before { content: '⏱️'; }
+        .recipe-meta .difficulty::before { content: '👨‍🍳'; }
+        .recipe-meta .servings::before { content: '🍽️'; }
+
+        .recipe-description {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .recipe-link {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s;
+        }
+
+        .recipe-link:hover {
+            gap: 0.8rem;
+        }
+
+        .recipe-link::after {
+            content: '→';
+            font-size: 1.2rem;
+        }
+
+        /* Planning Section */
+        .planning-section {
+            background: linear-gradient(135deg, #F5F5F5 0%, #E8E8E8 100%);
+        }
+
+        .planning-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .planning-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            height: 280px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .planning-item:hover {
+            transform: scale(1.05);
+        }
+
+        .planning-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .planning-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .planning-item:hover .planning-overlay {
+            opacity: 1;
+        }
+
+        .planning-overlay h3 {
+            color: white;
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary);
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .footer p, .footer a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            line-height: 2;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-info span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            margin-top: 1rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 25px 0 0 25px;
+            outline: none;
+        }
+
+        .newsletter-form button {
+            padding: 0.8rem 1.5rem;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 0 25px 25px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background: #E85D25;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 4rem 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .recipe-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .planning-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Nourish Generation</div>
+            <ul class="nav-menu">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Restaurant</a></li>
+                <li><a href="#">Community</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">Welcome to Nourish Generation</div>
+            <h1>Discover Simple Meals, <span class="highlight">Soulful Inspiration</span> Daily</h1>
+            <p>At Nourish Generation, we blend wholesome recipes with uplifting stories to nurture both body and soul. Experience the joy of cooking with fresh, simple ingredients.</p>
+            <a href="#" class="btn btn-primary">Get Started</a>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&h=600&fit=crop" alt="Delicious healthy meal">
+        </div>
+    </section>
+
+    <!-- Recipes Section -->
+    <section class="section">
+        <div class="section-header">
+            <h2>Explore Easy-To-Make Dishes And Inspiring, <span class="highlight">Soul-Warming Recipes</span></h2>
+            <p>Discover meals that bring comfort, flavor, and heart to your kitchen. Our soul-warming recipes blend simple ingredients with timeless inspiration.</p>
+        </div>
+        
+        <div class="recipe-grid">
+            <div class="recipe-card">
+                <div class="recipe-image">
+                    <img src="https://images.unsplash.com/photo-1546793665-c74683f339c1?w=400&h=300&fit=crop" alt="Salad">
+                    <div class="recipe-badge">New</div>
+                </div>
+                <div class="recipe-content">
+                    <h3 class="recipe-title">Housewife Salad with Avocado</h3>
+                    <div class="recipe-meta">
+                        <span class="time">15 min</span>
+                        <span class="difficulty">Easy</span>
+                        <span class="servings">2-3</span>
+                    </div>
+                    <p class="recipe-description">A fresh and vibrant salad with ripe avocado, crisp lettuce, and a zesty dressing that brings comfort to any meal.</p>
+                    <a href="#" class="recipe-link">View Recipe</a>
+                </div>
+            </div>
+
+            <div class="recipe-card">
+                <div class="recipe-image">
+                    <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400&h=300&fit=crop" alt="Jollof Rice">
+                </div>
+                <div class="recipe-content">
+                    <h3 class="recipe-title">Nigerian Jollof Rice with Chicken</h3>
+                    <div class="recipe-meta">
+                        <span class="time">45 min</span>
+                        <span class="difficulty">Medium</span>
+                        <span class="servings">4-6</span>
+                    </div>
+                    <p class="recipe-description">Authentic Nigerian Jollof Rice with tender chicken, rich tomato sauce, and aromatic spices that warm the soul.</p>
+                    <a href="#" class="recipe-link">View Recipe</a>
+                </div>
+            </div>
+
+            <div class="recipe-card">
+                <div class="recipe-image">
+                    <img src="https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=400&h=300&fit=crop" alt="Breaded Chicken">
+                </div>
+                <div class="recipe-content">
+                    <h3 class="recipe-title">Breaded Chicken with Parsley Potato</h3>
+                    <div class="recipe-meta">
+                        <span class="time">35 min</span>
+                        <span class="difficulty">Medium</span>
+                        <span class="servings">3-4</span>
+                    </div>
+                    <p class="recipe-description">Crispy breaded chicken paired with herb-infused parsley potatoes and fresh vegetables for a complete meal.</p>
+                    <a href="#" class="recipe-link">View Recipe</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Planning Section -->
+    <section class="section planning-section">
+        <div class="section-header">
+            <h2>Start <span class="highlight" style="color: var(--accent);">Planning</span> Your Recipes</h2>
+            <p>Get inspired and organize your favorite meals with simple, easy-to-follow recipe ideas.</p>
+        </div>
+        
+        <div class="planning-grid">
+            <div class="planning-item">
+                <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=300&h=280&fit=crop" alt="Recipe Planning">
+                <div class="planning-overlay">
+                    <h3>Meal Planning</h3>
+                </div>
+            </div>
+            <div class="planning-item">
+                <img src="https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=300&h=280&fit=crop" alt="Ingredients">
+                <div class="planning-overlay">
+                    <h3>Fresh Ingredients</h3>
+                </div>
+            </div>
+            <div class="planning-item">
+                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300&h=280&fit=crop" alt="Cooking">
+                <div class="planning-overlay">
+                    <h3>Easy Cooking</h3>
+                </div>
+            </div>
+            <div class="planning-item">
+                <img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?w=300&h=280&fit=crop" alt="Healthy Meals">
+                <div class="planning-overlay">
+                    <h3>Healthy Living</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <h3>Nourish Generation</h3>
+                <p>Your home for fresh meals, culinary training, and fast delivery services crafted to nourish the soul.</p>
+            </div>
+            
+            <div>
+                <h3>Useful Links</h3>
+                <div class="footer-links">
+                    <a href="#">Home</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Restaurant</a>
+                    <a href="#">Community</a>
+                </div>
+            </div>
+            
+            <div>
+                <h3>Contact</h3>
+                <div class="contact-info">
+                    <span>📍 Okemesi Crescent plot 29, Garki 2</span>
+                    <span>✉️ nourishministry@gmail.com</span>
+                    <span>📞 +234 803 658 3855</span>
+                </div>
+            </div>
+            
+            <div>
+                <h3>Newsletter</h3>
+                <p>Subscribe to get updates on new recipes and inspiration.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email">
+                    <button type="submit">Join</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            © 2025 Nourish Generation. All rights reserved.
+        </div>
+    </footer>
+</body>
+</html>
